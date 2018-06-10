@@ -27,6 +27,8 @@ install:
 	install -d $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d
 	install -p etc/X11/xorg.conf.d/00-keyboard.conf $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d/00-keyboard.conf
 	install -p etc/X11/xorg.conf.d/70-touchpad.conf $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d/70-touchpad.conf
+	install -d $(DESTDIR)$(CFG_DIR)/modprobe.d
+	install -p etc/modprobe.d/hid_apple.conf $(DESTDIR)$(CFG_DIR)/modprobe.d/hid_apple.conf
 
 my-cfg-$(VERSION).tar.gz: clean $(FILES)
 	mkdir $(TMP_DIR)/my-cfg-$(VERSION)

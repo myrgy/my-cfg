@@ -1,5 +1,5 @@
 Name:           my-cfg
-Version:        1.0.0
+Version:        1.0.2
 Release:        1%{?dist}
 Summary:        My config
 
@@ -32,6 +32,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 /etc/X11/xorg.conf.d/*.conf
 /etc/yum.repos.d/*.repo
+/etc/modprobe.d/*.conf
 
 %post
 systemctl enable hddtemp.service
