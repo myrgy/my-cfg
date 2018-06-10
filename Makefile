@@ -1,4 +1,5 @@
-VERSION := "1.0.0"
+GIT_VERSION := $(shell git describe --tags --match "v[0-9]*.[0-9]*.[0-9]*")
+VERSION:=$(subst v,,$(GIT_VERSION))
 
 CFG_DIR := /etc
 BIN_DIR := /bin
@@ -12,6 +13,7 @@ FILES   := $(wildcard etc/*) $(wildcard rpm/*) Makefile
 all: info
 
 info:
+	@echo "Version: $(VERSION)"
 	@echo "Available make targets:"
 	@echo "  install   : install binaries and man pages in DESTDIR (default /)"
 	@echo "  dist      : create packages (RPM, tarball) ready for distribution"
