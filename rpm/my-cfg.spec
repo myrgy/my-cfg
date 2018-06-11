@@ -1,11 +1,11 @@
 Name:           my-cfg
-Version:        1.0.2
+Version:        1.0.3
 Release:        1%{?dist}
 Summary:        My config
 
 Group:          Package
 License:        GPLv2
-URL:            http://my-cfg
+URL:            https://github.com/myrgy/my-cfg
 Source0:        my-cfg-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 BuildArch:      noarch
@@ -33,6 +33,7 @@ rm -rf $RPM_BUILD_ROOT
 /etc/X11/xorg.conf.d/*.conf
 /etc/yum.repos.d/*.repo
 /etc/modprobe.d/*.conf
+/etc/udev/rules.d/*.rules
 
 %post
 systemctl enable hddtemp.service

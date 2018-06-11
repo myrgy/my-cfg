@@ -29,6 +29,8 @@ install:
 	install -p etc/X11/xorg.conf.d/70-touchpad.conf $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d/70-touchpad.conf
 	install -d $(DESTDIR)$(CFG_DIR)/modprobe.d
 	install -p etc/modprobe.d/hid_apple.conf $(DESTDIR)$(CFG_DIR)/modprobe.d/hid_apple.conf
+	install -d $(DESTDIR)$(CFG_DIR)/udev/rules.d
+	install -p etc/udev/rules.d/90-xhc_sleep.rules $(DESTDIR)$(CFG_DIR)/udev/rules.d/90-xhc_sleep.rules
 
 my-cfg-$(VERSION).tar.gz: clean $(FILES)
 	mkdir $(TMP_DIR)/my-cfg-$(VERSION)
