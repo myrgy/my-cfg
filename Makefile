@@ -36,9 +36,11 @@ install:
 	install -d $(DESTDIR)$(CFG_DIR)/udev/rules.d
 	install -p etc/udev/rules.d/90-xhc_sleep.rules $(DESTDIR)$(CFG_DIR)/udev/rules.d/90-xhc_sleep.rules
 	install -d $(DESTDIR)$(CFG_DIR)/grub.d
-	install -p etc/grub.d/40_custom_apple_set_os $(DESTDIR)$(CFG_DIR)/etc/grub.d/40_custom_apple_set_os
+	install -p etc/grub.d/40_custom_apple_set_os $(DESTDIR)$(CFG_DIR)/grub.d/40_custom_apple_set_os
 	install -d $(DESTDIR)/boot/efi/EFI/fedora
 	install -p boot/efi/EFI/fedora/apple_set_os.efi $(DESTDIR)/boot/efi/EFI/fedora/apple_set_os.efi
+	install -d $(DESTDIR)/sbin
+	install -p sbin/gpu-switch $(DESTDIR)/sbin/gpu-switch
 
 my-cfg-$(VERSION).tar.gz: clean $(FILES)
 	mkdir $(TMP_DIR)/my-cfg-$(VERSION)
