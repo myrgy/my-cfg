@@ -1,0 +1,10 @@
+[Unit]
+Description=Fix hight CPU usage bug caused by acpi interruptions
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'echo "disable" > /sys/firmware/acpi/interrupts/gpe06'
+
+[Install]
+WantedBy=multi-user.target

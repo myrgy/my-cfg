@@ -33,6 +33,7 @@ install:
 	install -p etc/X11/xorg.conf.d/20-nvidia.conf $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d/20-nvidia.conf
 	install -d $(DESTDIR)$(CFG_DIR)/modprobe.d
 	install -p etc/modprobe.d/hid_apple.conf $(DESTDIR)$(CFG_DIR)/modprobe.d/hid_apple.conf
+	install -p etc/modprobe.d/bbswitch.conf $(DESTDIR)$(CFG_DIR)/modprobe.d/bbswitch.conf
 	install -d $(DESTDIR)$(CFG_DIR)/udev/rules.d
 	install -p etc/udev/rules.d/90-xhc_sleep.rules $(DESTDIR)$(CFG_DIR)/udev/rules.d/90-xhc_sleep.rules
 	install -d $(DESTDIR)$(CFG_DIR)/grub.d
@@ -41,6 +42,9 @@ install:
 	install -p boot/efi/EFI/fedora/apple_set_os.efi $(DESTDIR)/boot/efi/EFI/fedora/apple_set_os.efi
 	install -d $(DESTDIR)/sbin
 	install -p sbin/gpu-switch $(DESTDIR)/sbin/gpu-switch
+	install -d $(DESTDIR)$(CFG_DIR)/systemd/system
+	install -p etc/systemd/system/macbook_fix.service $(DESTDIR)$(CFG_DIR)/systemd/system/macbook_fix.service
+	install -p etc/systemd/system/nvidia-enable.service $(DESTDIR)$(CFG_DIR)/systemd/system/nvidia-enable.service
 
 my-cfg-$(VERSION).tar.gz: clean $(FILES)
 	mkdir $(TMP_DIR)/my-cfg-$(VERSION)
