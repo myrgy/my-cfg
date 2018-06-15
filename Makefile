@@ -24,13 +24,21 @@ clean:
 install:
 	install -d $(DESTDIR)$(CFG_DIR)/yum.repos.d
 	install -p etc/yum.repos.d/skype-stable.repo $(DESTDIR)$(CFG_DIR)/yum.repos.d/skype-stable.repo
+	install -p etc/yum.repos.d/macbook.repo $(DESTDIR)$(CFG_DIR)/yum.repos.d/macbook.repo
 	install -d $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d
+	install -p etc/X11/xorg.conf $(DESTDIR)$(CFG_DIR)/X11/xorg.conf
 	install -p etc/X11/xorg.conf.d/00-keyboard.conf $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d/00-keyboard.conf
 	install -p etc/X11/xorg.conf.d/70-touchpad.conf $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d/70-touchpad.conf
+	install -p etc/X11/xorg.conf.d/20-intel.conf $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d/20-intel.conf
+	install -p etc/X11/xorg.conf.d/20-nvidia.conf $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d/20-nvidia.conf
 	install -d $(DESTDIR)$(CFG_DIR)/modprobe.d
 	install -p etc/modprobe.d/hid_apple.conf $(DESTDIR)$(CFG_DIR)/modprobe.d/hid_apple.conf
 	install -d $(DESTDIR)$(CFG_DIR)/udev/rules.d
 	install -p etc/udev/rules.d/90-xhc_sleep.rules $(DESTDIR)$(CFG_DIR)/udev/rules.d/90-xhc_sleep.rules
+	install -d $(DESTDIR)$(CFG_DIR)/grub.d
+	install -p etc/grub.d/40_custom_apple_set_os $(DESTDIR)$(CFG_DIR)/etc/grub.d/40_custom_apple_set_os
+	install -d $(DESTDIR)/boot/efi/EFI/fedora
+	install -p boot/efi/EFI/fedora/apple_set_os.efi $(DESTDIR)/boot/efi/EFI/fedora/apple_set_os.efi
 
 my-cfg-$(VERSION).tar.gz: clean $(FILES)
 	mkdir $(TMP_DIR)/my-cfg-$(VERSION)

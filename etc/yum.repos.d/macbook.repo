@@ -1,0 +1,7 @@
+# see https://github.com/ktdreyer/facetimehd-kmod-rpm
+[ktdreyer-macbook]
+name=ktdreyer macbook kmods $releasever
+baseurl=http://ktdreyer.fedorapeople.org/macbook/f$releasever/
+enabled=1
+#metadata_expire=7d
+gpgcheck=0
