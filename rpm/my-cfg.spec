@@ -1,5 +1,5 @@
 Name:           my-cfg
-Version:        1.0.5
+Version:        1.0.6
 Release:        1%{?dist}
 Summary:        My config
 
@@ -10,7 +10,7 @@ Source0:        my-cfg-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 BuildArch:      noarch
 
-Requires: lm_sensors, brightnessctl, network-manager-applet, redshift-gtk, lxpolkit, xscreensaver, fish, stow, hddtemp, util-linux-user, powertop
+Requires: lm_sensors, brightnessctl, network-manager-applet, redshift-gtk, lxpolkit, xscreensaver, fish, stow, hddtemp, util-linux-user, powertop, kbdd
 
 %description
 Set up usual packets for macbook
