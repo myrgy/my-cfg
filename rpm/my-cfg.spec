@@ -10,7 +10,9 @@ Source0:        my-cfg-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 BuildArch:      noarch
 
-Requires: lm_sensors, brightnessctl, network-manager-applet, redshift-gtk, lxpolkit, xscreensaver, fish, stow, hddtemp, util-linux-user, powertop, kbdd
+Requires: lm_sensors, brightnessctl, network-manager-applet, redshift-gtk, lxpolkit,
+Requires: xscreensaver, fish, stow, hddtemp, util-linux-user, powertop, kbdd, tlp, smartmontools
+Requires: neofetch, xdg-utils
 
 %description
 Set up usual packets for macbook
