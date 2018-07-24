@@ -1,12 +1,19 @@
-GIT_VERSION := $(shell git describe --tags --match "v[0-9]*.[0-9]*.[0-9]*")
-VERSION:=$(subst v,,$(GIT_VERSION))
+IS_UNDER_GIT := $(shell git rev-parse --is-inside-work-tree)
+
+ifeq "$(IS_UNDER_GIT)" "true"
+GIT_VERSION := $(shell git describe --tags --long --match "v[0-9]*.[0-9]")
+VERSION:= $(shell echo $(GIT_VERSION) | sed -E "s/v([0-9]+\.[0-9]+)-([0-9]+)-.*/\1.\2/g")
+else
+VERSION:= ""
+endif
 
 CFG_DIR := /etc
 BIN_DIR := /bin
 MAN_DIR := /share/man
 TMP_DIR := $(shell mktemp -d)
 
-FILES   := $(wildcard etc/*) $(wildcard rpm/*) Makefile
+FILES := $(wildcard etc/* boot/* sbin/*)
+ALL_FILES := $(FILES) $(wildcard rpm/*) Makefile
 
 .PHONY: all info install rpms clean
 
@@ -22,39 +29,21 @@ clean:
 	rm -f my-cfg-*.tar.gz
 
 install:
-	install -d $(DESTDIR)$(CFG_DIR)/yum.repos.d
-	install -p etc/yum.repos.d/skype-stable.repo $(DESTDIR)$(CFG_DIR)/yum.repos.d/skype-stable.repo
-	install -p etc/yum.repos.d/macbook.repo $(DESTDIR)$(CFG_DIR)/yum.repos.d/macbook.repo
-	install -d $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d
-	install -p etc/X11/xorg.conf $(DESTDIR)$(CFG_DIR)/X11/xorg.conf
-	install -p etc/X11/xorg.conf.d/00-keyboard.conf $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d/00-keyboard.conf
-	install -p etc/X11/xorg.conf.d/70-touchpad.conf $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d/70-touchpad.conf
-	install -p etc/X11/xorg.conf.d/20-intel.conf $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d/20-intel.conf
-	install -p etc/X11/xorg.conf.d/20-nvidia.conf $(DESTDIR)$(CFG_DIR)/X11/xorg.conf.d/20-nvidia.conf
-	install -d $(DESTDIR)$(CFG_DIR)/modprobe.d
-	install -p etc/modprobe.d/hid_apple.conf $(DESTDIR)$(CFG_DIR)/modprobe.d/hid_apple.conf
-	install -p etc/modprobe.d/bbswitch.conf $(DESTDIR)$(CFG_DIR)/modprobe.d/bbswitch.conf
-	install -d $(DESTDIR)$(CFG_DIR)/udev/rules.d
-	install -p etc/udev/rules.d/90-xhc_sleep.rules $(DESTDIR)$(CFG_DIR)/udev/rules.d/90-xhc_sleep.rules
-	install -d $(DESTDIR)$(CFG_DIR)/grub.d
-	install -p etc/grub.d/40_custom_apple_set_os $(DESTDIR)$(CFG_DIR)/grub.d/40_custom_apple_set_os
-	install -d $(DESTDIR)/boot/efi/EFI/fedora
-	install -p boot/efi/EFI/fedora/apple_set_os.efi $(DESTDIR)/boot/efi/EFI/fedora/apple_set_os.efi
-	install -d $(DESTDIR)/sbin
-	install -p sbin/gpu-switch $(DESTDIR)/sbin/gpu-switch
-	install -d $(DESTDIR)$(CFG_DIR)/systemd/system
-	install -p etc/systemd/system/macbook_fix.service $(DESTDIR)$(CFG_DIR)/systemd/system/macbook_fix.service
-	install -p etc/systemd/system/nvidia-enable.service $(DESTDIR)$(CFG_DIR)/systemd/system/nvidia-enable.service
+	@for file in $(FILES); do \
+    install -D $(DESTDIR)/$$file $$file \
+  done
 
-my-cfg-$(VERSION).tar.gz: clean $(FILES)
+my-cfg-$(VERSION).tar.gz: clean $(ALL_FILES)
 	mkdir $(TMP_DIR)/my-cfg-$(VERSION)
 	cp -r * $(TMP_DIR)/my-cfg-$(VERSION)
-	cd $(TMP_DIR) ; \
-	tar cfz $(TMP_DIR)/my-cfg-$(VERSION).tar.gz my-cfg-$(VERSION)
+	cd $(TMP_DIR); \
+  sed -i -E "s/^(Version:\s*)[0-9]+\.[0-9]+.*/\1$(VERSION)/g" my-cfg-$(VERSION)/rpm/my-cfg.spec; \
+  tar cfz $(TMP_DIR)/my-cfg-$(VERSION).tar.gz my-cfg-$(VERSION)
 	mv $(TMP_DIR)/my-cfg-$(VERSION).tar.gz .
 	rm -rf $(TMP_DIR)
 
 rpms: my-cfg-$(VERSION).tar.gz
+	@echo $(VERSION)
 	mkdir $(TMP_DIR)
 	mkdir $(TMP_DIR)/BUILD
 	mkdir $(TMP_DIR)/RPMS
