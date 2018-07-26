@@ -1,18 +1,17 @@
 IS_UNDER_GIT := $(shell git rev-parse --is-inside-work-tree)
 
-ifeq "$(IS_UNDER_GIT)" "true"
+ifeq ($(IS_UNDER_GIT), true)
 GIT_VERSION := $(shell git describe --tags --long --match "v[0-9]*.[0-9]")
 VERSION:= $(shell echo $(GIT_VERSION) | sed -E "s/v([0-9]+\.[0-9]+)-([0-9]+)-.*/\1.\2/g")
 else
-VERSION:= ""
+VERSION:= 0.0
 endif
 
 CFG_DIR := /etc
 BIN_DIR := /bin
 MAN_DIR := /share/man
 TMP_DIR := $(shell mktemp -d)
-
-FILES := $(wildcard etc/* boot/* sbin/*)
+FILES = $(shell find etc boot sbin -type f)
 ALL_FILES := $(FILES) $(wildcard rpm/*) Makefile
 
 .PHONY: all info install rpms clean
@@ -29,9 +28,8 @@ clean:
 	rm -f my-cfg-*.tar.gz
 
 install:
-	@for file in $(FILES); do \
-    install -D $(DESTDIR)/$$file $$file \
-  done
+	@echo $(FILES)
+	@for file in $(FILES); do install -v -d $(DESTDIR)/$$(dirname $$file); install -v $$file $(DESTDIR)/$$(dirname $$file); done
 
 my-cfg-$(VERSION).tar.gz: clean $(ALL_FILES)
 	mkdir $(TMP_DIR)/my-cfg-$(VERSION)
