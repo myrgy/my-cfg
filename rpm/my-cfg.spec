@@ -45,7 +45,6 @@ rm -rf $RPM_BUILD_ROOT
 %preun
 systemctl disable hddtemp.service
 systemctl disable macbook_fix.service
-systemctl disable nvidia-enable.service
 
 %post
 systemctl enable hddtemp.service
@@ -54,8 +53,6 @@ gpu-switch -i
 grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 systemctl enable macbook_fix.service
 systemctl start macbook_fix.service
-systemctl enable nvidia-enable.service
-systemctl start nvidia-enable.service
 
 %changelog
 * Fri Jun 15 2018 Alexander Dalshov <dalshov@gmail.com> 1.0.5
