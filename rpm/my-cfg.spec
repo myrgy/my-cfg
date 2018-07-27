@@ -12,7 +12,9 @@ BuildArch:      noarch
 
 Requires: lm_sensors, brightnessctl, network-manager-applet, redshift-gtk, lxpolkit,
 Requires: xscreensaver, fish, stow, hddtemp, util-linux-user, powertop, kbdd, tlp, smartmontools
-Requires: neofetch, xdg-utils
+Requires: neofetch, xdg-utils, glibc
+
+%define _binaries_in_noarch_packages_terminate_build   0
 
 %description
 Set up usual packets for macbook
@@ -45,6 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 %preun
 systemctl disable hddtemp.service
 systemctl disable macbook_fix.service
+systemctl disable nvidia-disable.service
 
 %post
 systemctl enable hddtemp.service
@@ -53,8 +56,12 @@ gpu-switch -i
 grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 systemctl enable macbook_fix.service
 systemctl start macbook_fix.service
+systemctl enable nvidia-disable.service
+systemctl start nvidia-disable.service
 
 %changelog
+* Fri Jun 27 2018 Alexander Dalshov <dalshov@gmail.com> 1.1.4
+- Disable nvidia on resume
 * Fri Jun 15 2018 Alexander Dalshov <dalshov@gmail.com> 1.0.5
 - Nvidia power management
 - CPU ACPI issue workaround

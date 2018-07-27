@@ -1,0 +1,10 @@
+[Unit]
+Description=Disable NVIDIA card on resume
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'gpu-ctl f'
+
+[Install]
+After=systemd-suspend.target

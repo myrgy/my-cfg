@@ -8,7 +8,7 @@ usage(){
   cat <<EOF
 Usage:
   $(basename $0) --integrated   # Switch to the integrated GPU
-  $(basename $0) --dedicated    # Switch to the dedicated GPU   
+  $(basename $0) --dedicated    # Switch to the dedicated GPU
   $(basename $0) --help         # Show this message
 
 Switches between the integrated and dedicated graphics cards of a dual-GPU
@@ -35,7 +35,7 @@ switch_gpu(){
     printf "Fatal: $(basename $0) has to be run in EFI mode.\n" 1>&2
     exit 1
   fi
-  
+
   if ! mount | grep -q $sysfs_efi_vars; then
     if ! mount -t efivarfs none $sysfs_efi_vars; then
       printf "Fatal: Couldn't mount '${sysfs_efi_vars}'.\n" 1>&2
@@ -43,7 +43,7 @@ switch_gpu(){
     fi
   fi
   chattr -i "${sysfs_efi_vars}/${efi_gpu}" 2> /dev/null
-  printf "\x07\x00\x00\x00\x${1}\x00\x00\x00" > "${sysfs_efi_vars}/${efi_gpu}" 
+  printf "\x07\x00\x00\x00\x${1}\x00\x00\x00" > "${sysfs_efi_vars}/${efi_gpu}"
 }
 
 if [ $# -ne 1 ]; then
@@ -59,7 +59,7 @@ case "$1" in
     switch_gpu 0
   ;;
   -h|--help)
-    usage 
+    usage
   ;;
   *)
     usage 1>&2
