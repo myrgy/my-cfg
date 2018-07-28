@@ -7,4 +7,4 @@ Type=oneshot
 ExecStart=/bin/sh -c 'gpu-ctl s && gpu-ctl f && gpu-ctl s'
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
