@@ -1,9 +1,10 @@
 [Unit]
 Description=Disable NVIDIA card on resume
+After=suspend.target
 
 [Service]
 Type=oneshot
 ExecStart=/bin/sh -c 'gpu-ctl s && gpu-ctl f && gpu-ctl s'
 
 [Install]
-WantedBy=suspend.target sleep.target
+WantedBy=sleep.target
