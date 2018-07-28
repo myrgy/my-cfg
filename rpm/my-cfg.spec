@@ -58,6 +58,7 @@ grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 %systemd_post nvidia-disable.service
 %systemd_post macbook_fix.service
 systemctl is-enabled nvidia-disable.service
+systemctl enable nvidia-disable.service
 
 %changelog
 * Fri Jun 27 2018 Alexander Dalshov <dalshov@gmail.com> 1.1.4
