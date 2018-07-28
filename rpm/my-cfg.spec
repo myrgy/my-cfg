@@ -21,6 +21,9 @@ Set up usual packets for macbook
 
 %global debug_package %{nil}
 
+%{?systemd_requires}
+BuildRequires: systemd
+
 %prep
 %setup -q -n %{name}-%{version}
 
@@ -44,22 +47,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/*
 
 %preun
-systemctl disable hddtemp.service
-systemctl disable macbook_fix.service
-systemctl disable nvidia-disable.service
+%systemd_preun hddtemp.service
+%systemd_preun macbook_fix.service
+%systemd_preun nvidia-disable.service
 
 %post
-systemctl daemon-reload
-systemctl enable hddtemp.service
-systemctl start hddtemp.service
 gpu-switch -i
 grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
-systemctl enable nvidia-disable.service
-systemctl start nvidia-disable.service
+%systemd_post hddtemp.service
+%systemd_post nvidia-disable.service
+%systemd_post macbook_fix.service
 systemctl is-enabled nvidia-disable.service
-systemctl enable macbook_fix.service
-systemctl start macbook_fix.service
-systemctl daemon-reload
 
 %changelog
 * Fri Jun 27 2018 Alexander Dalshov <dalshov@gmail.com> 1.1.4
