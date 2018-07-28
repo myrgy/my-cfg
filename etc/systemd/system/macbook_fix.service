@@ -7,4 +7,4 @@ Type=oneshot
 ExecStart=/bin/sh -c 'echo "disable" > /sys/firmware/acpi/interrupts/gpe06'
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=multi-user.target suspend.target
