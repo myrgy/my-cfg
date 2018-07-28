@@ -12,7 +12,7 @@ BuildArch:      noarch
 
 Requires: lm_sensors, brightnessctl, network-manager-applet, redshift-gtk, lxpolkit,
 Requires: xscreensaver, fish, stow, hddtemp, util-linux-user, powertop, kbdd, tlp, smartmontools
-Requires: neofetch, xdg-utils, glibc
+Requires: neofetch, xdg-utils, glibc, nemo
 
 %define _binaries_in_noarch_packages_terminate_build   0
 
