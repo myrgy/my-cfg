@@ -1,6 +1,5 @@
 [Unit]
 Description=Disable NVIDIA card on resume
-After=suspend.target
 
 [Service]
 Type=oneshot
