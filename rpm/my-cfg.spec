@@ -53,6 +53,7 @@ systemctl enable hddtemp.service
 systemctl start hddtemp.service
 gpu-switch -i
 grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+systemctl daemon-reload
 systemctl enable macbook_fix.service
 systemctl start macbook_fix.service
 systemctl enable nvidia-disable.service
