@@ -49,15 +49,15 @@ systemctl disable macbook_fix.service
 systemctl disable nvidia-disable.service
 
 %post
+systemctl daemon-reload
 systemctl enable hddtemp.service
 systemctl start hddtemp.service
 gpu-switch -i
 grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
-systemctl daemon-reload
-systemctl enable macbook_fix.service
-systemctl start macbook_fix.service
 systemctl enable nvidia-disable.service
 systemctl start nvidia-disable.service
+systemctl enable macbook_fix.service
+systemctl start macbook_fix.service
 
 %changelog
 * Fri Jun 27 2018 Alexander Dalshov <dalshov@gmail.com> 1.1.4
