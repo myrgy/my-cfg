@@ -35,7 +35,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 /boot/efi/EFI/fedora/*.efi
-/etc/X11/xorg.conf
 /etc/X11/xorg.conf.d/*.conf
 /etc/yum.repos.d/*.repo
 /etc/modprobe.d/*.conf
@@ -62,6 +61,7 @@ systemctl start nvidia-disable.service
 %changelog
 * Fri Jun 27 2018 Alexander Dalshov <dalshov@gmail.com> 1.1.4
 - Disable nvidia on resume
+
 * Fri Jun 15 2018 Alexander Dalshov <dalshov@gmail.com> 1.0.5
 - Nvidia power management
 - CPU ACPI issue workaround
