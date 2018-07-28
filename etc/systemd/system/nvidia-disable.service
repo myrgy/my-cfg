@@ -6,4 +6,4 @@ Type=oneshot
 ExecStart=/bin/sh -c 'gpu-ctl s && gpu-ctl f && gpu-ctl s'
 
 [Install]
-WantedBy=suspend.target
+WantedBy=suspend.target sleep.target
