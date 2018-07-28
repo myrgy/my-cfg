@@ -11,7 +11,7 @@ CFG_DIR := /etc
 BIN_DIR := /bin
 MAN_DIR := /share/man
 TMP_DIR := $(shell mktemp -d)
-FILES = $(shell find etc boot sbin -type f)
+FILES = $(shell find etc boot sbin usr -type f)
 ALL_FILES := $(FILES) $(wildcard rpm/*) Makefile
 
 .PHONY: all info install rpms clean

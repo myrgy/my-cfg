@@ -1,0 +1,2 @@
+enable nvidia-disable.service
+enable macbook_fix.service

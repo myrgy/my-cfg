@@ -45,6 +45,7 @@ rm -rf $RPM_BUILD_ROOT
 /etc/grub.d/*
 /etc/systemd/system/*.service
 /sbin/*
+/usr/lib/systemd/system-preset/*.preset
 
 %preun
 %systemd_preun hddtemp.service
