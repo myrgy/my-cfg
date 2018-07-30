@@ -4,7 +4,7 @@ Before=suspend.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh -c 'gpu-ctl s && sleep 10 && gpu-ctl f && gpu-ctl s'
+ExecStart=/bin/sh -c 'gpu-ctl s && sleep 10 && gpu-ctl f && gpu-ctl s && sleep 10 && gpu-ctl s'
 
 [Install]
 WantedBy=suspend.target
